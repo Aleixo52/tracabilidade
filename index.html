@@ -376,7 +376,8 @@
       const id = new URLSearchParams(location.search).get('id');
       if (!id) { showError(); return; }
       try {
-        const r = await fetch(`lots/${id}.json`);
+        const base = location.href.split('?')[0].replace(/\/?$/, '');
+        const r = await fetch(`${base}/lots/${id}.json`);
         if (!r.ok) { showError(); return; }
         render(await r.json());
       } catch {
