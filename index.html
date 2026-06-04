@@ -289,16 +289,16 @@
     }
 
     function fmtShort(iso) {
+      if (!iso) return '—';
+      return new Date(iso + 'T12:00:00').toLocaleDateString('pt-PT', {
+        day: '2-digit', month: '2-digit'
+      });
+    }
 
     function fmtFull(iso) {
       if (!iso) return '—';
       return new Date(iso + 'T12:00:00').toLocaleDateString('pt-PT', {
         day: '2-digit', month: '2-digit', year: 'numeric'
-      });
-    }
-      if (!iso) return '—';
-      return new Date(iso + 'T12:00:00').toLocaleDateString('pt-PT', {
-        day: '2-digit', month: '2-digit'
       });
     }
 
