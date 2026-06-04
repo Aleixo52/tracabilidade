@@ -1,0 +1,15 @@
+{
+  "id": 42,
+  "lote": "GIR-2026-05",
+  "planta": "Girassol",
+  "germinacao_dias": 2,
+  "blackout_dias": 3,
+  "exposicao_dias": 7,
+  "dias_producao": 12,
+  "data_plantio": "2026-05-21",
+  "data_fim_germinacao": "2026-05-23",
+  "data_fim_blackout": "2026-05-26",
+  "data_colheita": "2026-06-02",
+  "quantidade": 50,
+  "produtor": "Verdes do Mondego"
+}
