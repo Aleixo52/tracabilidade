@@ -1,0 +1,15 @@
+{
+  "id": 43,
+  "lote": "RUC-2026-05",
+  "planta": "Rúcula",
+  "germinacao_dias": 3,
+  "blackout_dias": 4,
+  "exposicao_dias": 6,
+  "dias_producao": 13,
+  "data_plantio": "2026-05-20",
+  "data_fim_germinacao": "2026-05-23",
+  "data_fim_blackout": "2026-05-27",
+  "data_colheita": "2026-06-02",
+  "quantidade": 30,
+  "produtor": "Verdes do Mondego"
+}
