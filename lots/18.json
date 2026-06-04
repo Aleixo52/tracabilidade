@@ -1,0 +1,15 @@
+{
+  "id": 18,
+  "lote": "26-BRO-05",
+  "planta": "Coentros",
+  "germinacao_dias": 3,
+  "blackout_dias": 4,
+  "exposicao_dias": 8,
+  "dias_producao": 15,
+  "data_plantio": "2026-06-04",
+  "data_fim_germinacao": "2026-06-07",
+  "data_fim_blackout": "2026-06-11",
+  "data_colheita": "2026-06-19",
+  "quantidade": 1,
+  "produtor": "Verdes do Mondego"
+}
