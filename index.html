@@ -289,6 +289,13 @@
     }
 
     function fmtShort(iso) {
+
+    function fmtFull(iso) {
+      if (!iso) return '—';
+      return new Date(iso + 'T12:00:00').toLocaleDateString('pt-PT', {
+        day: '2-digit', month: '2-digit', year: 'numeric'
+      });
+    }
       if (!iso) return '—';
       return new Date(iso + 'T12:00:00').toLocaleDateString('pt-PT', {
         day: '2-digit', month: '2-digit'
@@ -312,7 +319,7 @@
       document.getElementById('harvest-date').textContent = fmtLong(d.data_colheita);
 
       document.getElementById('stat-ciclo').textContent     = `${d.dias_producao} dias`;
-      document.getElementById('stat-semeadura').textContent = fmtShort(d.data_plantio);
+      document.getElementById('stat-semeadura').textContent = fmtFull(d.data_plantio);
 
       document.getElementById('trace-lote').textContent = d.lote;
       document.getElementById('trace-id').textContent   = `OP-${String(d.id).padStart(4, '0')}`;
