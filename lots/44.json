@@ -1,0 +1,15 @@
+{
+  "id": 44,
+  "lote": "ERP-2026-06",
+  "planta": "Ervilha",
+  "germinacao_dias": 4,
+  "blackout_dias": 5,
+  "exposicao_dias": 8,
+  "dias_producao": 17,
+  "data_plantio": "2026-05-18",
+  "data_fim_germinacao": "2026-05-22",
+  "data_fim_blackout": "2026-05-27",
+  "data_colheita": "2026-06-04",
+  "quantidade": 40,
+  "produtor": "Verdes do Mondego"
+}
