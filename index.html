@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Verdes do Mondego</title>
+  <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -28,6 +29,7 @@
       font-size: 1.1rem;
       letter-spacing: 0.02em;
     }
+    .header-brand i { font-size: 1.3rem; }
     .header-tagline {
       color: #64748b;
       font-size: 0.85rem;
@@ -41,6 +43,12 @@
       font-size: 0.8rem;
       color: #64748b;
     }
+    .header-tags span {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .header-tags i { font-size: 0.95rem; }
 
     .container {
       max-width: 480px;
@@ -107,6 +115,7 @@
       color: #e2e8f0;
       margin-bottom: 16px;
     }
+    .section-title i { font-size: 1.1rem; color: #14b8a6; }
 
     .trace-grid {
       display: grid;
@@ -117,14 +126,21 @@
     .trace-label { color: #64748b; font-size: 0.75rem; margin-bottom: 2px; }
     .trace-value { color: #14b8a6; font-weight: 600; font-size: 0.9rem; }
     .trace-divider { border: none; border-top: 1px solid #334155; margin: 12px 0; }
-    .trace-note { display: flex; align-items: center; gap: 8px; color: #64748b; font-size: 0.8rem; }
+    .trace-note {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #64748b;
+      font-size: 0.8rem;
+    }
+    .trace-note i { font-size: 1rem; color: #14b8a6; flex-shrink: 0; }
 
     .timeline-item {
       display: flex;
       align-items: flex-start;
       gap: 16px;
       padding: 14px 0;
-      border-bottom: 1px solid #1e293b;
+      border-bottom: 1px solid #0f172a;
     }
     .timeline-item:last-child { border-bottom: none; }
 
@@ -135,13 +151,13 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       flex-shrink: 0;
     }
-    .tl-green  { background: rgba(20,184,166,.25); }
-    .tl-purple { background: rgba(168,85,247,.25); }
-    .tl-yellow { background: rgba(234,179,8,.25); }
-    .tl-blue   { background: rgba(14,165,233,.25); }
+    .tl-green  { background: rgba(20,184,166,.2);  color: #14b8a6; }
+    .tl-purple { background: rgba(168,85,247,.2);  color: #a855f7; }
+    .tl-yellow { background: rgba(234,179,8,.2);   color: #eab308; }
+    .tl-blue   { background: rgba(14,165,233,.2);  color: #0ea5e9; }
 
     .tl-body { flex: 1; }
     .tl-phase { font-weight: 600; color: #e2e8f0; font-size: 0.95rem; }
@@ -156,34 +172,42 @@
       font-size: 0.8rem;
       display: flex;
       justify-content: center;
-      gap: 16px;
+      align-items: center;
+      gap: 12px;
     }
+    .footer span { display: flex; align-items: center; gap: 4px; }
+    .footer i { font-size: 0.95rem; }
 
     #state-loading { text-align: center; padding: 80px 20px; color: #64748b; }
+    #state-loading i { font-size: 2rem; color: #14b8a6; display: block; margin-bottom: 12px; }
     #state-error   { text-align: center; padding: 80px 20px; color: #ef4444; display: none; }
+    #state-error i { font-size: 2rem; display: block; margin-bottom: 12px; }
     #state-content { display: none; }
   </style>
 </head>
 <body>
   <div id="state-loading">
-    <p style="font-size:1.5rem;margin-bottom:8px">🌿</p>
+    <i class="ph ph-leaf"></i>
     <p>A carregar...</p>
   </div>
 
   <div id="state-error">
-    <p style="font-size:2rem;margin-bottom:12px">⚠️</p>
+    <i class="ph ph-warning"></i>
     <p>Lote não encontrado.</p>
     <p style="font-size:0.8rem;margin-top:8px;color:#64748b">Verifique se o QR Code está correcto.</p>
   </div>
 
   <div id="state-content">
     <div class="header">
-      <div class="header-brand">🌿 Verdes do Mondego</div>
+      <div class="header-brand">
+        <i class="ph ph-leaf"></i>
+        Verdes do Mondego
+      </div>
       <p class="header-tagline">Hidroponia em ambiente controlado</p>
       <div class="header-tags">
-        <span>🌱 Produção local</span>
+        <span><i class="ph ph-plant"></i> Produção local</span>
         <span>·</span>
-        <span>💧 Sem pesticidas</span>
+        <span><i class="ph ph-drop"></i> Sem pesticidas</span>
       </div>
     </div>
 
@@ -210,14 +234,17 @@
           </div>
           <div class="stat-box">
             <div class="stat-label">Origem</div>
-            <div class="stat-value">Mondego</div>
+            <div class="stat-value">Coimbra</div>
           </div>
         </div>
       </div>
 
       <!-- Rastreabilidade -->
       <div class="card">
-        <div class="section-title">✅ Rastreabilidade</div>
+        <div class="section-title">
+          <i class="ph ph-check-circle"></i>
+          Rastreabilidade
+        </div>
         <div class="trace-grid">
           <div>
             <div class="trace-label">Lote</div>
@@ -230,23 +257,26 @@
         </div>
         <hr class="trace-divider">
         <div class="trace-note">
-          <span>🌿</span>
-          <span id="trace-note">Cultivado em sistema hidropónico. Produção local no Vale do Mondego.</span>
+          <i class="ph ph-map-pin"></i>
+          <span>Cultivado em sistema hidropónico. Produção local em Coimbra.</span>
         </div>
       </div>
 
       <!-- Linha do Tempo -->
       <div class="card">
-        <div class="section-title">ℹ️ Linha do Tempo</div>
+        <div class="section-title">
+          <i class="ph ph-info"></i>
+          Linha do Tempo
+        </div>
         <div id="timeline"></div>
       </div>
 
     </div>
 
     <div class="footer">
-      <span>🌱 Hidroponia</span>
+      <span><i class="ph ph-plant"></i> Hidroponia</span>
       <span>·</span>
-      <span>🌿 Produção local</span>
+      <span><i class="ph ph-map-pin"></i> Coimbra</span>
     </div>
   </div>
 
@@ -287,30 +317,29 @@
       document.getElementById('trace-lote').textContent = d.lote;
       document.getElementById('trace-id').textContent   = `OP-${String(d.id).padStart(4, '0')}`;
 
-      // Timeline
       const phases = [
         {
-          icon: '🌱', cls: 'tl-green',
+          icon: 'ph-plant', cls: 'tl-green',
           label: 'Semeadura', sub: 'Início do ciclo de produção',
           right: fmtShort(d.data_plantio)
         },
         {
-          icon: '🌿', cls: 'tl-green',
+          icon: 'ph-leaf', cls: 'tl-green',
           label: 'Germinação', sub: 'Ambiente controlado sem luz',
           right: `${d.germinacao_dias} dias`
         },
         {
-          icon: '🌑', cls: 'tl-purple',
+          icon: 'ph-moon', cls: 'tl-purple',
           label: 'Blackout', sub: 'Desenvolvimento das raízes',
           right: `${d.blackout_dias} dias`
         },
         {
-          icon: '☀️', cls: 'tl-yellow',
+          icon: 'ph-sun', cls: 'tl-yellow',
           label: 'Exposição', sub: 'Luz natural para síntese de nutrientes',
           right: `${d.exposicao_dias} dias`
         },
         {
-          icon: '🌾', cls: 'tl-blue',
+          icon: 'ph-scissors', cls: 'tl-blue',
           label: 'Colheita', sub: 'Momento ideal de maturação',
           right: fmtLong(d.data_colheita), highlight: true
         },
@@ -318,7 +347,7 @@
 
       document.getElementById('timeline').innerHTML = phases.map(p => `
         <div class="timeline-item">
-          <div class="tl-icon ${p.cls}">${p.icon}</div>
+          <div class="tl-icon ${p.cls}"><i class="ph ${p.icon}"></i></div>
           <div class="tl-body">
             <div class="tl-phase">${p.label}</div>
             <div class="tl-sub">${p.sub}</div>
