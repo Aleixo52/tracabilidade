@@ -1,0 +1,15 @@
+{
+  "id": 12,
+  "lote": "202605-MOS-02",
+  "planta": "Mostarda",
+  "germinacao_dias": 2,
+  "blackout_dias": 2,
+  "exposicao_dias": 5,
+  "dias_producao": 9,
+  "data_plantio": "2026-05-25",
+  "data_fim_germinacao": "2026-05-27",
+  "data_fim_blackout": "2026-05-29",
+  "data_colheita": "2026-06-03",
+  "quantidade": 25,
+  "produtor": "Verdes do Mondego"
+}
