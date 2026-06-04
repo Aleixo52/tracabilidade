@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verdes do Mondego</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0d1117;
+      color: #e2e8f0;
+      font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      padding-bottom: 40px;
+    }
+
+    .header {
+      text-align: center;
+      padding: 32px 20px 20px;
+    }
+    .header-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #14b8a6;
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: 0.02em;
+    }
+    .header-tagline {
+      color: #64748b;
+      font-size: 0.85rem;
+      margin-top: 4px;
+    }
+    .header-tags {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 8px;
+      font-size: 0.8rem;
+      color: #64748b;
+    }
+
+    .container {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    .card {
+      background: #1e293b;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+
+    .plant-name {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #f1f5f9;
+      line-height: 1.2;
+    }
+    .plant-desc {
+      color: #94a3b8;
+      font-size: 0.9rem;
+      margin-top: 4px;
+    }
+    .harvest-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 12px;
+      font-size: 0.85rem;
+    }
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #14b8a6;
+      flex-shrink: 0;
+    }
+    .badge-text { color: #14b8a6; font-weight: 500; }
+    .badge-date { color: #64748b; }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 16px;
+    }
+    .stat-box {
+      background: #0f172a;
+      border-radius: 10px;
+      padding: 12px 8px;
+      text-align: center;
+    }
+    .stat-label { color: #64748b; font-size: 0.75rem; margin-bottom: 4px; }
+    .stat-value { color: #14b8a6; font-weight: 700; font-size: 1rem; }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #e2e8f0;
+      margin-bottom: 16px;
+    }
+
+    .trace-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+    .trace-label { color: #64748b; font-size: 0.75rem; margin-bottom: 2px; }
+    .trace-value { color: #14b8a6; font-weight: 600; font-size: 0.9rem; }
+    .trace-divider { border: none; border-top: 1px solid #334155; margin: 12px 0; }
+    .trace-note { display: flex; align-items: center; gap: 8px; color: #64748b; font-size: 0.8rem; }
+
+    .timeline-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 14px 0;
+      border-bottom: 1px solid #1e293b;
+    }
+    .timeline-item:last-child { border-bottom: none; }
+
+    .tl-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .tl-green  { background: rgba(20,184,166,.25); }
+    .tl-purple { background: rgba(168,85,247,.25); }
+    .tl-yellow { background: rgba(234,179,8,.25); }
+    .tl-blue   { background: rgba(14,165,233,.25); }
+
+    .tl-body { flex: 1; }
+    .tl-phase { font-weight: 600; color: #e2e8f0; font-size: 0.95rem; }
+    .tl-sub   { color: #64748b; font-size: 0.8rem; margin-top: 2px; }
+    .tl-dur   { font-size: 0.85rem; font-weight: 600; color: #14b8a6; white-space: nowrap; padding-top: 2px; }
+    .tl-dur-harvest { color: #14b8a6; font-size: 0.8rem; text-align: right; }
+
+    .footer {
+      text-align: center;
+      padding: 24px 20px 8px;
+      color: #475569;
+      font-size: 0.8rem;
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    #state-loading { text-align: center; padding: 80px 20px; color: #64748b; }
+    #state-error   { text-align: center; padding: 80px 20px; color: #ef4444; display: none; }
+    #state-content { display: none; }
+  </style>
+</head>
+<body>
+  <div id="state-loading">
+    <p style="font-size:1.5rem;margin-bottom:8px">🌿</p>
+    <p>A carregar...</p>
+  </div>
+
+  <div id="state-error">
+    <p style="font-size:2rem;margin-bottom:12px">⚠️</p>
+    <p>Lote não encontrado.</p>
+    <p style="font-size:0.8rem;margin-top:8px;color:#64748b">Verifique se o QR Code está correcto.</p>
+  </div>
+
+  <div id="state-content">
+    <div class="header">
+      <div class="header-brand">🌿 Verdes do Mondego</div>
+      <p class="header-tagline">Hidroponia em ambiente controlado</p>
+      <div class="header-tags">
+        <span>🌱 Produção local</span>
+        <span>·</span>
+        <span>💧 Sem pesticidas</span>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <!-- Planta -->
+      <div class="card">
+        <div class="plant-name" id="plant-name"></div>
+        <p class="plant-desc">Microverdes colhidos no momento ideal de maturação</p>
+        <div class="harvest-badge">
+          <div class="badge-dot"></div>
+          <span class="badge-text" id="harvest-ago"></span>
+          <span class="badge-date">·</span>
+          <span class="badge-date" id="harvest-date"></span>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-box">
+            <div class="stat-label">Ciclo</div>
+            <div class="stat-value" id="stat-ciclo">—</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Semeadura</div>
+            <div class="stat-value" id="stat-semeadura">—</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Origem</div>
+            <div class="stat-value">Mondego</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rastreabilidade -->
+      <div class="card">
+        <div class="section-title">✅ Rastreabilidade</div>
+        <div class="trace-grid">
+          <div>
+            <div class="trace-label">Lote</div>
+            <div class="trace-value" id="trace-lote">—</div>
+          </div>
+          <div>
+            <div class="trace-label">ID de Produção</div>
+            <div class="trace-value" id="trace-id">—</div>
+          </div>
+        </div>
+        <hr class="trace-divider">
+        <div class="trace-note">
+          <span>🌿</span>
+          <span id="trace-note">Cultivado em sistema hidropónico. Produção local no Vale do Mondego.</span>
+        </div>
+      </div>
+
+      <!-- Linha do Tempo -->
+      <div class="card">
+        <div class="section-title">ℹ️ Linha do Tempo</div>
+        <div id="timeline"></div>
+      </div>
+
+    </div>
+
+    <div class="footer">
+      <span>🌱 Hidroponia</span>
+      <span>·</span>
+      <span>🌿 Produção local</span>
+    </div>
+  </div>
+
+  <script>
+    function fmtLong(iso) {
+      if (!iso) return '—';
+      return new Date(iso + 'T12:00:00').toLocaleDateString('pt-PT', {
+        day: 'numeric', month: 'long', year: 'numeric'
+      });
+    }
+
+    function fmtShort(iso) {
+      if (!iso) return '—';
+      return new Date(iso + 'T12:00:00').toLocaleDateString('pt-PT', {
+        day: '2-digit', month: '2-digit'
+      });
+    }
+
+    function daysSince(iso) {
+      if (!iso) return null;
+      const diff = Date.now() - new Date(iso + 'T12:00:00').getTime();
+      return Math.floor(diff / 86400000);
+    }
+
+    function render(d) {
+      document.getElementById('plant-name').textContent = d.planta;
+
+      const days = daysSince(d.data_colheita);
+      document.getElementById('harvest-ago').textContent =
+        days === null ? 'Data desconhecida' :
+        days === 0    ? 'Colhido hoje' :
+                        `Colhido há ${days} dia${days !== 1 ? 's' : ''}`;
+      document.getElementById('harvest-date').textContent = fmtLong(d.data_colheita);
+
+      document.getElementById('stat-ciclo').textContent     = `${d.dias_producao} dias`;
+      document.getElementById('stat-semeadura').textContent = fmtShort(d.data_plantio);
+
+      document.getElementById('trace-lote').textContent = d.lote;
+      document.getElementById('trace-id').textContent   = `OP-${String(d.id).padStart(4, '0')}`;
+
+      // Timeline
+      const phases = [
+        {
+          icon: '🌱', cls: 'tl-green',
+          label: 'Semeadura', sub: 'Início do ciclo de produção',
+          right: fmtShort(d.data_plantio)
+        },
+        {
+          icon: '🌿', cls: 'tl-green',
+          label: 'Germinação', sub: 'Ambiente controlado sem luz',
+          right: `${d.germinacao_dias} dias`
+        },
+        {
+          icon: '🌑', cls: 'tl-purple',
+          label: 'Blackout', sub: 'Desenvolvimento das raízes',
+          right: `${d.blackout_dias} dias`
+        },
+        {
+          icon: '☀️', cls: 'tl-yellow',
+          label: 'Exposição', sub: 'Luz natural para síntese de nutrientes',
+          right: `${d.exposicao_dias} dias`
+        },
+        {
+          icon: '🌾', cls: 'tl-blue',
+          label: 'Colheita', sub: 'Momento ideal de maturação',
+          right: fmtLong(d.data_colheita), highlight: true
+        },
+      ];
+
+      document.getElementById('timeline').innerHTML = phases.map(p => `
+        <div class="timeline-item">
+          <div class="tl-icon ${p.cls}">${p.icon}</div>
+          <div class="tl-body">
+            <div class="tl-phase">${p.label}</div>
+            <div class="tl-sub">${p.sub}</div>
+          </div>
+          <div class="${p.highlight ? 'tl-dur-harvest' : 'tl-dur'}">${p.right}</div>
+        </div>
+      `).join('');
+
+      document.getElementById('state-loading').style.display = 'none';
+      document.getElementById('state-content').style.display = 'block';
+    }
+
+    function showError() {
+      document.getElementById('state-loading').style.display = 'none';
+      document.getElementById('state-error').style.display   = 'block';
+    }
+
+    async function load() {
+      const id = new URLSearchParams(location.search).get('id');
+      if (!id) { showError(); return; }
+      try {
+        const r = await fetch(`lots/${id}.json`);
+        if (!r.ok) { showError(); return; }
+        render(await r.json());
+      } catch {
+        showError();
+      }
+    }
+
+    load();
+  </script>
+</body>
+</html>
