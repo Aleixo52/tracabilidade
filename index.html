@@ -245,15 +245,9 @@
           <i class="ph ph-check-circle"></i>
           Rastreabilidade
         </div>
-        <div class="trace-grid">
-          <div>
-            <div class="trace-label">Lote</div>
-            <div class="trace-value" id="trace-lote">—</div>
-          </div>
-          <div>
-            <div class="trace-label">ID de Produção</div>
-            <div class="trace-value" id="trace-id">—</div>
-          </div>
+        <div style="margin-bottom:12px">
+          <div class="trace-label">Lote de Produção</div>
+          <div class="trace-value" id="trace-id">—</div>
         </div>
         <hr class="trace-divider">
         <div class="trace-note">
@@ -321,12 +315,11 @@
       document.getElementById('stat-ciclo').textContent     = `${d.dias_producao} dias`;
       document.getElementById('stat-semeadura').textContent = fmtFull(d.data_plantio);
 
-      document.getElementById('trace-lote').textContent = d.lote;
-      document.getElementById('trace-id').textContent   = `OP-${String(d.id).padStart(4, '0')}`;
+      document.getElementById('trace-id').textContent = `OP-${String(d.id).padStart(4, '0')}`;
 
       const phases = [
         {
-          icon: 'ph-seed', cls: 'tl-green',
+          icon: 'ph-coffee-bean', cls: 'tl-green',
           label: 'Semeadura', sub: 'Início do ciclo de produção',
           right: fmtShort(d.data_plantio)
         },
