@@ -1,0 +1,16 @@
+{
+  "id": 65,
+  "lote": "202605-COE",
+  "planta": "Coentros",
+  "germinacao_dias": 3,
+  "blackout_dias": 4,
+  "exposicao_dias": 8,
+  "dias_producao": 15,
+  "data_plantio": "2026-05-26",
+  "data_fim_germinacao": "2026-05-29",
+  "data_fim_blackout": "2026-06-02",
+  "data_colheita": "2026-06-10",
+  "quantidade": 1,
+  "produtor": "Verdes do Mondego",
+  "fases": []
+}
